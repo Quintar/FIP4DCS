@@ -9,9 +9,9 @@ Take the gauges/Demo as an example in how to create websites for the FIP and the
 The demo displays the KA-50s vertical speed as a gauge and text, FPS of the FIP and can use the first 5 Buttons as an ABRIS Kontrol and the left rotary knob as the ABRIS rotary knob. The 6th button presses the ABRIS rotary button.
 
 Requirements:
-- A 64bit Windows 7/10 Operating system
+- A 64bit Windows 7/8/10 Operating system
 - (optional) a Saitek/Logitech Flight Instrument Panel
-- (optional, not with FIP) the current 64Bit drivers of the Logitech Flight Instrument Panel
+- (optional, not with FIP) the current 64Bit drivers of the Logitech Flight Instrument Panel https://download01.logi.com/web/ftp/pub/techsupport/simulation/Flight_Instrument_Panel_x64_Drivers_8.0.150.0.exe
 - DCS BIOS in the Export.lua
 
 Usage:
