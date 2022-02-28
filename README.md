@@ -12,7 +12,7 @@ Requirements:
 - A 64bit Windows 7/8/10 Operating system
 - (optional) a Saitek/Logitech Flight Instrument Panel
 - (optional, not with FIP) the current 64Bit drivers of the Logitech Flight Instrument Panel https://download01.logi.com/web/ftp/pub/techsupport/simulation/Flight_Instrument_Panel_x64_Drivers_8.0.150.0.exe
-- DCS BIOS in the Export.lua
+- DCS BIOS in the Export.lua https://dcs-bios.readthedocs.io/en/latest/installation.html
 
 Usage:
 Install the FIP drivers and this Software.
