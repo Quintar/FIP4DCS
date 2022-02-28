@@ -1,0 +1,68 @@
+{
+	"S1": {
+		"Internal": "page1",
+		"DCSCommand": "ABRIS_BTN_1",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"S2": {
+		"Internal": "page2",
+		"DCSCommand": "ABRIS_BTN_2",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"S3": {
+		"Internal": "page3",
+		"DCSCommand": "ABRIS_BTN_3",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"S4": {
+		"Internal": "page4",
+		"DCSCommand": "ABRIS_BTN_4",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"S5": {
+		"Internal": "page5",
+		"DCSCommand": "ABRIS_BTN_5",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"S6": {
+		"Internal": "page6",
+		"DCSCommand": "ABRIS_CURSOR_BTN",
+		"DCSArgumentPressed": "1",
+		"DCSArgumentReleased": "0"
+	},
+	"LeftRotaryMinus": {
+		"Internal": "",
+		"DCSCommand": "ABRIS_CURSOR_ROT",
+		"DCSArgumentPressed": "-32000",
+		"DCSArgumentReleased": ""
+	},
+	"LeftRotaryPlus": {
+		"Internal": "",
+		"DCSCommand": "ABRIS_CURSOR_ROT",
+		"DCSArgumentPressed": "+32000",
+		"DCSArgumentReleased": ""
+	},
+	"RightRotaryMinus": {
+		"Internal": "",
+		"DCSCommand": "0x1234",
+		"DCSArgumentPressed": "",
+		"DCSArgumentReleased": ""
+	},
+	"RightRotaryPlus": {
+		"Internal": "",
+		"DCSCommand": "0x1234",
+		"DCSArgumentPressed": "",
+		"DCSArgumentReleased": ""
+	},
+	"Gauges": [
+		{
+			"DCSAddress": "0x184E",
+			"Formular": "((value - 32768) / 32768) * 180"
+		}
+	]
+}

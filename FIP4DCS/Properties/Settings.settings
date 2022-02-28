@@ -1,0 +1,21 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FIP4DCS.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="DCSBiosDataIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">239.255.050.010</Value>
+    </Setting>
+    <Setting Name="DCSBiosDataPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5010</Value>
+    </Setting>
+    <Setting Name="DCSBiosListenIP" Type="System.String" Scope="User">
+      <Value Profile="(Default)">127.000.000.001</Value>
+    </Setting>
+    <Setting Name="DCSBiosListenPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">7778</Value>
+    </Setting>
+    <Setting Name="DCSProfilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

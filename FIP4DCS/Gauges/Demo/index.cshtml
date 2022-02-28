@@ -1,0 +1,13 @@
+﻿<img src="gauge0" width="200" height="200" />
+FPS: @Model.fps
+<div>
+    Page: @(Model.page)
+    @try
+    {
+    <div>
+        AS:@(((Model.dcs[0x184e].value & 0xffff) - 32365) / 1000)
+        Model: @Model.dcs[0x0000].text
+    </div>
+    }
+    catch { }
+</div>

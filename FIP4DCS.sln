@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIP4DCS", "FIP4DCS\FIP4DCS.csproj", "{49CB7B29-4E79-4F55-91E6-95B04F01E7DD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{49CB7B29-4E79-4F55-91E6-95B04F01E7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49CB7B29-4E79-4F55-91E6-95B04F01E7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49CB7B29-4E79-4F55-91E6-95B04F01E7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49CB7B29-4E79-4F55-91E6-95B04F01E7DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B983F484-AF02-4F16-A9C9-F3523E58B152}
+	EndGlobalSection
+EndGlobal
