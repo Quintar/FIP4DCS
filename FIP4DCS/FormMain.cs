@@ -19,6 +19,8 @@ namespace FIP4DCS
         public FormMain()
         {
             InitializeComponent();
+            SetMiniMode(Properties.Settings.Default.MiniMode);
+            ToggleIPSettings(Properties.Settings.Default.ShowIPSettings);
             if (mf.InitOk) ToggleStartStopbutton(2);
             else ToggleStartStopbutton(0);
 
@@ -233,6 +235,72 @@ namespace FIP4DCS
         {
             Properties.Settings.Default.Save();
             buttonSaveSettings.Text = Properties.Resources.Save;
+        }
+
+        private void miniModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ToggleMiniMode();
+        }
+
+        private void showIPSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.ShowIPSettings = !Properties.Settings.Default.ShowIPSettings;
+            ToggleIPSettings(Properties.Settings.Default.ShowIPSettings);
+            Properties.Settings.Default.Save();
+        }
+
+        private void ToggleIPSettings(bool show = false)
+        {
+            if (show)
+            {
+                this.Width = 484;
+            } else
+            {
+                this.Width = 316;
+            }
+            showIPSettingsToolStripMenuItem.Checked = show;
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void ToggleMiniMode()
+        {
+            Properties.Settings.Default.MiniMode = !Properties.Settings.Default.MiniMode;
+            SetMiniMode(Properties.Settings.Default.MiniMode);
+            Properties.Settings.Default.Save();
+        }
+
+        private void SetMiniMode(bool mini = false)
+        {
+            buttonStartStopFip.Visible = !mini;
+            comboBoxProfiles.Visible = !mini;
+            buttonShowProfile.Visible = !mini;
+            checkBoxRenderFip.Visible = !mini;
+            checkBoxRenderPreview.Visible = !mini;
+            buttonRefreshProfiles.Visible = !mini;
+            miniModeToolStripMenuItem.Checked = mini;
+            if (mini)
+            {
+                pictureBoxFip.Location = new Point(pictureBoxFip.Location.X, 27);
+                this.Height -= (96-27);
+            } else
+            {
+                pictureBoxFip.Location = new Point(pictureBoxFip.Location.X, 96);
+                this.Height += (96 - 27);
+            }
+        }
+
+        private void startFIPToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonStartStopFip_Click(sender, e);
+        }
+
+        private void startProfileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            buttonShowProfile_Click(sender, e);
         }
     }
 }

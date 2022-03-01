@@ -82,5 +82,29 @@ namespace FIP4DCS.Properties {
                 this["DCSProfilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowIPSettings {
+            get {
+                return ((bool)(this["ShowIPSettings"]));
+            }
+            set {
+                this["ShowIPSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool MiniMode {
+            get {
+                return ((bool)(this["MiniMode"]));
+            }
+            set {
+                this["MiniMode"] = value;
+            }
+        }
     }
 }

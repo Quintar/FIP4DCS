@@ -134,7 +134,7 @@
     <value>Auf FIP anzeigen</value>
   </data>
   <data name="buttonRefreshProfiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>125, 41</value>
+    <value>125, 56</value>
   </data>
   <data name="buttonRefreshProfiles.Size" type="System.Drawing.Size, System.Drawing">
     <value>97, 23</value>
@@ -150,5 +150,44 @@
   </data>
   <data name="buttonSaveSettings.Text" xml:space="preserve">
     <value>Sichern</value>
+  </data>
+  <data name="startFIPToolStripMenuItem.Text" xml:space="preserve">
+    <value>Starte &amp;FIP</value>
+  </data>
+  <data name="startProfileToolStripMenuItem.Text" xml:space="preserve">
+    <value>Starte &amp;Profil</value>
+  </data>
+  <data name="quitToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Beenden</value>
+  </data>
+  <data name="fileToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>46, 20</value>
+  </data>
+  <data name="fileToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Datei</value>
+  </data>
+  <data name="showIPSettingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="showIPSettingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Zeige IP-Einstellungen</value>
+  </data>
+  <data name="miniModeToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 22</value>
+  </data>
+  <data name="miniModeToolStripMenuItem.Text" xml:space="preserve">
+    <value>Mini Modus</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>90, 20</value>
+  </data>
+  <data name="settingsToolStripMenuItem.Text" xml:space="preserve">
+    <value>&amp;Einstellungen</value>
+  </data>
+  <data name="menuStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>300, 24</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>300, 338</value>
   </data>
 </root>

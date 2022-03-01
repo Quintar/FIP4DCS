@@ -10,6 +10,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using TheArtOfDev.HtmlRenderer.Core;
@@ -106,13 +109,14 @@ namespace FIP4DCS
         private struct GaugePicture
         {
             public string Name { get; set; }
-            public Image Image { get; set; }
+            public System.Drawing.Image Image { get; set; }
             public int X { get; set; }
             public int Y { get; set; }
             public bool rotate { get; set; }
             public bool slideud { get; set; }
             public bool slidelr { get; set; }
             public int gaugeindex { get; set; }
+            public bool xaml { get; set; }
         }
 
         public void CompileProfileFile()
@@ -131,18 +135,27 @@ namespace FIP4DCS
                     if (_CssData != null) _CssData.Combine(thisCssData);
                     else _CssData = thisCssData;
                 }
-                if (file.EndsWith(".png") || file.EndsWith(".jpg") || file.EndsWith(".jpeg")) {
+                if (file.EndsWith(".png") || file.EndsWith(".jpg") || file.EndsWith(".jpeg") || file.EndsWith(".xaml")) {
                     int iTest = -1;
                     var f = file.Replace(_FilePath + "\\", "");
                     if (int.TryParse(f[0].ToString(), out iTest))
                     {
                         GaugePicture gp = new GaugePicture();
                         gp.Name = file.Substring(file.LastIndexOf("\\") + 1);
-                        gp.Image = Image.FromFile(file);
+
+                        if (file.EndsWith(".xaml"))
+                        {
+                            gp.Image = LoadXamlFile(new Uri(file), null, null);
+                        }
+                        else
+                        {
+                            gp.Image = System.Drawing.Image.FromFile(file);
+                        }
 
                         int x = 0;
                         int y = 0;
                         int g = 0;
+                        if(file.EndsWith(".xaml")) { gp.xaml = true; } else { gp.xaml = false; }
                         if (gp.Name.Contains("_x"))
                         {
                             int pos1 = gp.Name.IndexOf("_x") + 2;
@@ -214,15 +227,15 @@ namespace FIP4DCS
             CheckLcdOffset();
 
             var _htmlImage = HtmlRender.RenderToImage(str,
-                                                new Size(HtmlWindowUsableWidth, (int)measureData.Height + 20), System.Drawing.Color.White, _CssData,
+                                                new System.Drawing.Size(HtmlWindowUsableWidth, (int)measureData.Height + 20), System.Drawing.Color.White, _CssData,
                                                 null, onImageLoad);
 
             if (_htmlImage != null)
             {
-                graphics.DrawImage(_htmlImage, new Rectangle(new Point(HtmlWindowXOffset, 0),
-                        new Size(HtmlWindowUsableWidth, (int)measureData.Height + 20)),
-                    new Rectangle(new Point(0, _currentLcdYOffset),
-                        new Size(HtmlWindowUsableWidth, (int)measureData.Height + 20)),
+                graphics.DrawImage(_htmlImage, new Rectangle(new System.Drawing.Point(HtmlWindowXOffset, 0),
+                        new System.Drawing.Size(HtmlWindowUsableWidth, (int)measureData.Height + 20)),
+                    new Rectangle(new System.Drawing.Point(0, _currentLcdYOffset),
+                        new System.Drawing.Size(HtmlWindowUsableWidth, (int)measureData.Height + 20)),
                     GraphicsUnit.Pixel);
 
                 lastImage = _htmlImage;
@@ -248,7 +261,7 @@ namespace FIP4DCS
                         {
                             int value = miniBios[Convert.ToInt32(gauge.DCSAddress, 16)].value;
                             string formular = gauge.Formular.Replace("value", (value & 0xffff).ToString());
-                            Expression exp = new Expression(formular);
+                        NCalc.Expression exp = new NCalc.Expression(formular);
                             per = (double)exp.Evaluate();
                         } catch { }
                         rot[i] = (int)(per);
@@ -258,7 +271,11 @@ namespace FIP4DCS
                     foreach (GaugePicture gp in gaugePictures)
                     {
                         var image = gp.Image;
-                        if (bm.Width == 1 && bm.Height == 1) bm = new Bitmap(image.Width, image.Height);
+                    int width = image.Width;
+                    int height = image.Height;
+                    int.TryParse(e.Attributes["width"], out width);
+                    int.TryParse(e.Attributes["height"], out height);
+                    if (bm.Width == 1 && bm.Height == 1) bm = new Bitmap(width, height);
                     if (image != null)
                     {
                         using (Graphics g = Graphics.FromImage(bm))
@@ -280,7 +297,7 @@ namespace FIP4DCS
                                     g.RotateTransform(rot[gp.gaugeindex]);
                                     g.TranslateTransform(-(image.Width / 2 + gp.X), -(image.Height / 2 + gp.Y));
                                 }
-                                g.DrawImage(image, gp.X, gp.Y, image.Width, image.Height);
+                                g.DrawImage(image, gp.X, gp.Y, image.Width > width ? width : image.Width, image.Height > height ? height : image.Height);
                             } catch { }
                         }
                     }
@@ -288,7 +305,7 @@ namespace FIP4DCS
             }
             else
             {
-                var image = Image.FromFile(_FilePath + "\\" + e.Src);
+                var image = System.Drawing.Image.FromFile(_FilePath + "\\" + e.Src);
                 bm = new Bitmap(image.Width, image.Height);
                 using (Graphics g = Graphics.FromImage(bm))
                 {
@@ -441,8 +458,8 @@ namespace FIP4DCS
         }
 
 
-        private Image lastImage = null;
-        public Image LastImage { get { return lastImage; } }
+        private System.Drawing.Image lastImage = null;
+        public System.Drawing.Image LastImage { get { return lastImage; } }
 
         private void CheckLcdOffset()
         {
@@ -459,6 +476,48 @@ namespace FIP4DCS
             if (_currentLcdYOffset < 0) _currentLcdYOffset = 0;
         }
 
+        private Bitmap LoadXamlFile(Uri imageUri, int? width, int? height)
+        {
+            using (Stream xamlStream = new FileStream(imageUri.AbsolutePath, FileMode.Open))
+            {
+                try
+                {
+                    Canvas canvas = XamlReader.Load(xamlStream) as Canvas;
+                    return RenderXaml(canvas, width, height);
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+
+        private static Bitmap RenderXaml(Canvas canvas, int? width, int? height)
+        {
+            int scaledWidth = width.HasValue ? Math.Max(1, width.Value) : (int)canvas.Width;
+            int scaledHeight = height.HasValue ? Math.Max(1, height.Value) : (int)canvas.Height;
+            RenderTargetBitmap render =
+                new RenderTargetBitmap(scaledWidth, scaledHeight, 96d, 96d, PixelFormats.Pbgra32);
+            if (width.HasValue || height.HasValue)
+            {
+                double scaleX = canvas.Width > 0 ? scaledWidth / canvas.Width : 1.0;
+                double scaleY = canvas.Height > 0 ? scaledHeight / canvas.Height : 1.0;
+                canvas.RenderTransform = new ScaleTransform(scaleX, scaleY);
+            }
+
+            canvas.Measure(new System.Windows.Size(canvas.Width, canvas.Height));
+            canvas.Arrange(new Rect(new System.Windows.Size(canvas.Width, canvas.Height)));
+            render.Render(canvas);
+
+            MemoryStream stream = new MemoryStream();
+            BitmapEncoder encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(render));
+            encoder.Save(stream);
+
+            Bitmap bitmap = new Bitmap(stream);
+
+            return bitmap;
+        }
 
         public class MyHtmlHelper
         {

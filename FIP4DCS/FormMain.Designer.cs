@@ -46,7 +46,17 @@
             this.label5 = new System.Windows.Forms.Label();
             this.maskedTextBoxListenPort = new System.Windows.Forms.MaskedTextBox();
             this.buttonSaveSettings = new System.Windows.Forms.Button();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startFIPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.startProfileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showIPSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miniModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFip)).BeginInit();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonStartStopFip
@@ -58,8 +68,8 @@
             // 
             // comboBoxProfiles
             // 
-            this.comboBoxProfiles.FormattingEnabled = true;
             resources.ApplyResources(this.comboBoxProfiles, "comboBoxProfiles");
+            this.comboBoxProfiles.FormattingEnabled = true;
             this.comboBoxProfiles.Name = "comboBoxProfiles";
             // 
             // buttonShowProfile
@@ -154,6 +164,67 @@
             this.buttonSaveSettings.UseVisualStyleBackColor = true;
             this.buttonSaveSettings.Click += new System.EventHandler(this.buttonSaveSettings_Click);
             // 
+            // menuStrip
+            // 
+            resources.ApplyResources(this.menuStrip, "menuStrip");
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.settingsToolStripMenuItem});
+            this.menuStrip.Name = "menuStrip";
+            // 
+            // fileToolStripMenuItem
+            // 
+            resources.ApplyResources(this.fileToolStripMenuItem, "fileToolStripMenuItem");
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.startFIPToolStripMenuItem,
+            this.startProfileToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.quitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            // 
+            // startFIPToolStripMenuItem
+            // 
+            resources.ApplyResources(this.startFIPToolStripMenuItem, "startFIPToolStripMenuItem");
+            this.startFIPToolStripMenuItem.Name = "startFIPToolStripMenuItem";
+            this.startFIPToolStripMenuItem.Click += new System.EventHandler(this.startFIPToolStripMenuItem_Click);
+            // 
+            // startProfileToolStripMenuItem
+            // 
+            resources.ApplyResources(this.startProfileToolStripMenuItem, "startProfileToolStripMenuItem");
+            this.startProfileToolStripMenuItem.Name = "startProfileToolStripMenuItem";
+            this.startProfileToolStripMenuItem.Click += new System.EventHandler(this.startProfileToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            resources.ApplyResources(this.toolStripMenuItem1, "toolStripMenuItem1");
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            // 
+            // quitToolStripMenuItem
+            // 
+            resources.ApplyResources(this.quitToolStripMenuItem, "quitToolStripMenuItem");
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.settingsToolStripMenuItem, "settingsToolStripMenuItem");
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showIPSettingsToolStripMenuItem,
+            this.miniModeToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            // 
+            // showIPSettingsToolStripMenuItem
+            // 
+            resources.ApplyResources(this.showIPSettingsToolStripMenuItem, "showIPSettingsToolStripMenuItem");
+            this.showIPSettingsToolStripMenuItem.Name = "showIPSettingsToolStripMenuItem";
+            this.showIPSettingsToolStripMenuItem.Click += new System.EventHandler(this.showIPSettingsToolStripMenuItem_Click);
+            // 
+            // miniModeToolStripMenuItem
+            // 
+            resources.ApplyResources(this.miniModeToolStripMenuItem, "miniModeToolStripMenuItem");
+            this.miniModeToolStripMenuItem.Name = "miniModeToolStripMenuItem";
+            this.miniModeToolStripMenuItem.Click += new System.EventHandler(this.miniModeToolStripMenuItem_Click);
+            // 
             // FormMain
             // 
             resources.ApplyResources(this, "$this");
@@ -175,11 +246,15 @@
             this.Controls.Add(this.buttonShowProfile);
             this.Controls.Add(this.comboBoxProfiles);
             this.Controls.Add(this.buttonStartStopFip);
+            this.Controls.Add(this.menuStrip);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MainMenuStrip = this.menuStrip;
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFip)).EndInit();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -204,6 +279,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.MaskedTextBox maskedTextBoxListenPort;
         private System.Windows.Forms.Button buttonSaveSettings;
+        private System.Windows.Forms.MenuStrip menuStrip;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem showIPSettingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem miniModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startFIPToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem startProfileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     }
 }
 
