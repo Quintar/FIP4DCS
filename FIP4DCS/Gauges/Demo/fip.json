@@ -63,6 +63,14 @@
 		{
 			"DCSAddress": "0x184E",
 			"Formular": "((value - 32768) / 32768) * 180"
+		},
+		{
+			"DCSAddress": "0x184E",
+			"Formular": "((value - 32768) / 32768) * 100"
+		},
+		{
+			"DCSAddress": "0x184E",
+			"Formular": "((value - 32768) / 32768) * 100"
 		}
 	]
 }

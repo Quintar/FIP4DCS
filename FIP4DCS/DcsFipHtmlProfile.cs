@@ -110,6 +110,9 @@ namespace FIP4DCS
             public int X { get; set; }
             public int Y { get; set; }
             public bool rotate { get; set; }
+            public bool slideud { get; set; }
+            public bool slidelr { get; set; }
+            public int gaugeindex { get; set; }
         }
 
         public void CompileProfileFile()
@@ -139,6 +142,7 @@ namespace FIP4DCS
 
                         int x = 0;
                         int y = 0;
+                        int g = 0;
                         if (gp.Name.Contains("_x"))
                         {
                             int pos1 = gp.Name.IndexOf("_x") + 2;
@@ -151,10 +155,19 @@ namespace FIP4DCS
                             string xtmp = gp.Name.Substring(pos1, gp.Name.IndexOf("_", pos1) - pos1);
                             int.TryParse(xtmp, out y);
                         }
+                        if (gp.Name.Contains("_g"))
+                        {
+                            int pos1 = gp.Name.IndexOf("_g") + 2;
+                            string xtmp = gp.Name.Substring(pos1, gp.Name.IndexOf("_", pos1) - pos1);
+                            int.TryParse(xtmp, out g);
+                        }
                         if (gp.Name.Contains("_rot_")) { gp.rotate = true; } else { gp.rotate = false; }
+                        if (gp.Name.Contains("_slideud_")) { gp.slideud = true; } else { gp.slideud = false; }
+                        if (gp.Name.Contains("_slidelr_")) { gp.slidelr = true; } else { gp.slidelr = false; }
+
                         gp.X = x;
                         gp.Y = y;
-
+                        gp.gaugeindex = g;
 
                         gaugePictures.Add(gp);
                     }
@@ -216,44 +229,62 @@ namespace FIP4DCS
             }
         }
 
-        int rot = 0;
+        //int rot = 0;
         private void OnImageLoad(object sender, HtmlImageLoadEventArgs e)
         {
             var bm = new Bitmap(1, 1);
             var browser = (HtmlContainerInt)sender;
             if (e.Src.ToLower().Contains("gauge"))
             {
-                try
-                {
-                    int gaugeIndex = 0;
-                    if (e.Src.Length > "gauge".Length) int.TryParse(e.Src.ToLower().Replace("gauge", ""), out gaugeIndex);
-                    GaugeSetting gauge = fIPSettings.Gauges[gaugeIndex];
-                    int value = miniBios[Convert.ToInt32(gauge.DCSAddress, 16)].value;
-                    string formular = gauge.Formular.Replace("value", (value & 0xffff).ToString());
-                    Expression exp = new Expression(formular);
-                    double per = (double)exp.Evaluate();
-                    rot = (int)(per);
+                    int[] rot = new int[fIPSettings.Gauges.Length];
+                    int i = 0;
+                    //int gaugeIndex = 0;
+                    //if (e.Src.Length > "gauge".Length) int.TryParse(e.Src.ToLower().Replace("gauge", ""), out gaugeIndex);
+                    foreach (GaugeSetting gauge in fIPSettings.Gauges)
+                    {
+                        //= [gaugeIndex];
+                        double per = 0;
+                        try
+                        {
+                            int value = miniBios[Convert.ToInt32(gauge.DCSAddress, 16)].value;
+                            string formular = gauge.Formular.Replace("value", (value & 0xffff).ToString());
+                            Expression exp = new Expression(formular);
+                            per = (double)exp.Evaluate();
+                        } catch { }
+                        rot[i] = (int)(per);
+                        i++;
+                    }
 
                     foreach (GaugePicture gp in gaugePictures)
                     {
                         var image = gp.Image;
                         if (bm.Width == 1 && bm.Height == 1) bm = new Bitmap(image.Width, image.Height);
-                        if (image != null)
+                    if (image != null)
+                    {
+                        using (Graphics g = Graphics.FromImage(bm))
                         {
-                            using (Graphics g = Graphics.FromImage(bm))
+                            try
                             {
+
+                                if (gp.slideud)
+                                {
+                                    g.TranslateTransform(0, rot[gp.gaugeindex]);
+                                }
+                                if (gp.slidelr)
+                                {
+                                    g.TranslateTransform(rot[gp.gaugeindex], 0);
+                                }
                                 if (gp.rotate)
                                 {
                                     g.TranslateTransform(image.Width / 2 + gp.X, image.Height / 2 + gp.Y);
-                                    g.RotateTransform(rot);
+                                    g.RotateTransform(rot[gp.gaugeindex]);
                                     g.TranslateTransform(-(image.Width / 2 + gp.X), -(image.Height / 2 + gp.Y));
                                 }
                                 g.DrawImage(image, gp.X, gp.Y, image.Width, image.Height);
-                            }
+                            } catch { }
                         }
                     }
                 }
-                catch { }
             }
             else
             {
